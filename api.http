@@ -1,0 +1,16 @@
+## valid uuid = 6b8e4bef-1adb-404e-9172-d492dc087d0b
+
+### Create Category
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+  "name": "Electronics",
+  "description": "Electronics products"
+}
+
+### List Categories
+GET http://localhost:3000/categories
+
+### Get Category by ID
+GET http://localhost:3000/categories/:id
