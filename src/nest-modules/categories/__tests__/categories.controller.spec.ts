@@ -1,8 +1,7 @@
-import { CreateCategoryOutput } from 'core/category/application/create-category/create-category.use-case';
-import { GetCategoryOutput } from 'core/category/application/get-category/get-category.use-case';
-import { ListCategoriesOutput } from 'core/category/application/list-categories/list-categories.use-case';
-import { UpdateCategoryInput } from 'core/category/application/update-category/update-category.input';
-import { UpdateCategoryOutput } from 'core/category/application/update-category/update-category.use-case';
+import { CreateCategoryOutput } from 'core/category/application/use-cases/create-category/create-category.use-case';
+import { ListCategoriesOutput } from 'core/category/application/use-cases/list-categories/list-categories.use-case';
+import { UpdateCategoryInput } from 'core/category/application/use-cases/update-category/update-category.input';
+import { UpdateCategoryOutput } from 'core/category/application/use-cases/update-category/update-category.use-case';
 import { SortDirection } from 'core/shared/domain/repository/search-params';
 import { CategoriesController } from '../categories.controller';
 import {
@@ -10,6 +9,7 @@ import {
   CategoryCollectionPresenter,
 } from '../categories.presenter';
 import { CreateCategoryDto } from '../dto/create-category.dto';
+import { GetCategoryOutput } from 'core/category/application/use-cases/get-category/get-category.use-case';
 
 // beforeEach(async () => {
 //   const module: TestingModule = await Test.createTestingModule({
@@ -109,6 +109,7 @@ describe('CategoriesController Unit Tests', () => {
     };
     const mockGetUseCase = {
       execute: jest.fn().mockReturnValue(Promise.resolve(output)),
+      categoryRepo: jest.fn(),
     };
     //@ts-expect-error defined part of methods
     controller['getUseCase'] = mockGetUseCase;

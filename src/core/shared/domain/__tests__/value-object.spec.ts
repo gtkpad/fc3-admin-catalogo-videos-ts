@@ -40,6 +40,6 @@ describe('ValueObject Unit Tests', () => {
     const complexValueObject2 = new ComplexValueObject('test2', 2);
 
     expect(complexValueObject1.equals(complexValueObject2)).toBeFalsy();
-    expect(complexValueObject1.equals(valueObject1 as any)).toBeFalsy;
+    expect(complexValueObject1.equals(valueObject1 as any)).toBeFalsy();
   });
 });

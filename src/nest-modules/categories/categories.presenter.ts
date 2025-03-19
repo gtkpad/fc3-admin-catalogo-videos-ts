@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
-import { CategoryOutput } from 'core/category/application/common/category-output';
-import { ListCategoriesOutput } from 'core/category/application/list-categories/list-categories.use-case';
+import { CategoryOutput } from 'core/category/application/use-cases/common/category-output';
+import { ListCategoriesOutput } from 'core/category/application/use-cases/list-categories/list-categories.use-case';
 import { CollectionPresenter } from 'nest-modules/shared/collection.presenter';
 
 export class CategoryPresenter {

@@ -1,9 +1,9 @@
 import { getModelToken } from '@nestjs/sequelize';
-import { CreateCategoryUseCase } from '../../core/category/application/create-category/create-category.use-case';
-import { DeleteCategoryUseCase } from '../../core/category/application/delete-category/delete-category.use-case';
-import { GetCategoryUseCase } from '../../core/category/application/get-category/get-category.use-case';
-import { ListCategoriesUseCase } from '../../core/category/application/list-categories/list-categories.use-case';
-import { UpdateCategoryUseCase } from '../../core/category/application/update-category/update-category.use-case';
+import { CreateCategoryUseCase } from '../../core/category/application/use-cases/create-category/create-category.use-case';
+import { DeleteCategoryUseCase } from '../../core/category/application/use-cases/delete-category/delete-category.use-case';
+import { GetCategoryUseCase } from '../../core/category/application/use-cases/get-category/get-category.use-case';
+import { ListCategoriesUseCase } from '../../core/category/application/use-cases/list-categories/list-categories.use-case';
+import { UpdateCategoryUseCase } from '../../core/category/application/use-cases/update-category/update-category.use-case';
 import { ICategoryRepository } from '../../core/category/domain/category.repository';
 import { CategoryInMemoryRepository } from '../../core/category/infra/repository/in-memory/category-in-memory.repository';
 import { CategorySequelizeRepository } from '../../core/category/infra/repository/sequelize/category-sequelize.repository';

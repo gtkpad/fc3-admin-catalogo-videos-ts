@@ -1,4 +1,4 @@
-import { Category } from 'core/category/domain/category.entity';
+import { Category } from 'core/category/domain/category.aggregate';
 import { ICategoryRepository } from 'core/category/domain/category.repository';
 import request from 'supertest';
 import { startApp } from 'nest-modules/shared/testing/helpers';

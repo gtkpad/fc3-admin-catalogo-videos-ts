@@ -1,4 +1,4 @@
-import { Category } from '../../../domain/category.entity';
+import { Category } from '../../../domain/category.aggregate';
 import { CategoryInMemoryRepository } from './category-in-memory.repository';
 
 describe('CategoryInMemoryRepository', () => {
@@ -9,7 +9,6 @@ describe('CategoryInMemoryRepository', () => {
     const items = [Category.fake().aCategory().build()];
     const filterSpy = jest.spyOn(items, 'filter' as any);
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const itemsFiltered = await repository['applyFilter'](items, null as any);
     expect(filterSpy).not.toHaveBeenCalled();
     expect(itemsFiltered).toStrictEqual(items);
@@ -28,7 +27,7 @@ describe('CategoryInMemoryRepository', () => {
     expect(itemsFiltered).toStrictEqual([items[0], items[1]]);
   });
 
-  it('should sort by created_at when sort param is null', async () => {
+  it('should sort by created_at when sort param is null', () => {
     const created_at = new Date();
 
     const items = [
@@ -49,21 +48,21 @@ describe('CategoryInMemoryRepository', () => {
         .build(),
     ];
 
-    const itemsSorted = await repository['applySort'](items, null, null);
+    const itemsSorted = repository['applySort'](items, null, null);
     expect(itemsSorted).toStrictEqual([items[2], items[1], items[0]]);
   });
 
-  it('should sort by name', async () => {
+  it('should sort by name', () => {
     const items = [
       Category.fake().aCategory().withName('c').build(),
       Category.fake().aCategory().withName('b').build(),
       Category.fake().aCategory().withName('a').build(),
     ];
 
-    let itemsSorted = await repository['applySort'](items, 'name', 'asc');
+    let itemsSorted = repository['applySort'](items, 'name', 'asc');
     expect(itemsSorted).toStrictEqual([items[2], items[1], items[0]]);
 
-    itemsSorted = await repository['applySort'](items, 'name', 'desc');
+    itemsSorted = repository['applySort'](items, 'name', 'desc');
     expect(itemsSorted).toStrictEqual([items[0], items[1], items[2]]);
   });
 });

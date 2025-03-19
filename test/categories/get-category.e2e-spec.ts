@@ -1,8 +1,8 @@
 import request from 'supertest';
 import { instanceToPlain } from 'class-transformer';
 import { ICategoryRepository } from '../../src/core/category/domain/category.repository';
-import { CategoryOutputMapper } from 'core/category/application/common/category-output';
-import { Category } from 'core/category/domain/category.entity';
+import { CategoryOutputMapper } from 'core/category/application/use-cases/common/category-output';
+import { Category } from 'core/category/domain/category.aggregate';
 import { CategoriesController } from 'nest-modules/categories/categories.controller';
 import { GetCategoryFixture } from 'nest-modules/categories/testing/category.fixture';
 import { startApp } from 'nest-modules/shared/testing/helpers';

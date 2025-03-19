@@ -1,11 +1,10 @@
 import { TestingModule, Test } from '@nestjs/testing';
-import { CategoryOutputMapper } from '../../../core/category/application/common/category-output';
-import { CreateCategoryUseCase } from '../../../core/category/application/create-category/create-category.use-case';
-import { DeleteCategoryUseCase } from '../../../core/category/application/delete-category/delete-category.use-case';
-import { GetCategoryUseCase } from '../../../core/category/application/get-category/get-category.use-case';
-import { ListCategoriesUseCase } from '../../../core/category/application/list-categories/list-categories.use-case';
-import { UpdateCategoryUseCase } from '../../../core/category/application/update-category/update-category.use-case';
-import { Category } from '../../../core/category/domain/category.entity';
+import { CategoryOutputMapper } from '../../../core/category/application/use-cases/common/category-output';
+import { CreateCategoryUseCase } from '../../../core/category/application/use-cases/create-category/create-category.use-case';
+import { DeleteCategoryUseCase } from '../../../core/category/application/use-cases/delete-category/delete-category.use-case';
+import { ListCategoriesUseCase } from '../../../core/category/application/use-cases/list-categories/list-categories.use-case';
+import { UpdateCategoryUseCase } from '../../../core/category/application/use-cases/update-category/update-category.use-case';
+import { Category } from '../../../core/category/domain/category.aggregate';
 import { ICategoryRepository } from '../../../core/category/domain/category.repository';
 import { DatabaseModule } from '../../database/database.module';
 import { CategoriesController } from '../categories.controller';
@@ -22,6 +21,7 @@ import {
   UpdateCategoryFixture,
 } from '../testing/category.fixture';
 import { ConfigModule } from 'nest-modules/config/config.module';
+import { GetCategoryUseCase } from 'core/category/application/use-cases/get-category/get-category.use-case';
 
 describe('CategoriesController Integration Tests', () => {
   let controller: CategoriesController;

@@ -1,11 +1,9 @@
 import { SearchParams } from '../../../../shared/domain/repository/search-params';
 import { Uuid } from '../../../../shared/domain/value-objects/uuid.vo';
 import { InMemorySearchableRepository } from '../../../../shared/infra/repository/in-memory.repository';
-import { Category } from '../../../domain/category.entity';
+import { Category } from '../../../domain/category.aggregate';
 import {
   CategoryFilter,
-  CategorySearchParams,
-  CategorySearchResult,
   ICategoryRepository,
 } from '../../../domain/category.repository';
 
@@ -20,12 +18,14 @@ export class CategoryInMemoryRepository
     filter: CategoryFilter,
   ): Promise<Category[]> {
     if (!filter) {
-      return items;
+      return Promise.resolve(items);
     }
 
-    return items.filter((i) => {
-      return i.name.toLowerCase().includes(filter.toLowerCase());
-    });
+    return Promise.resolve(
+      items.filter((i) => {
+        return i.name.toLowerCase().includes(filter.toLowerCase());
+      }),
+    );
   }
 
   getEntity(): new (...args: any[]) => Category {

@@ -5,7 +5,7 @@ import { CATEGORY_PROVIDERS } from 'nest-modules/categories/categories.providers
 import { startApp } from 'nest-modules/shared/testing/helpers';
 import { Uuid } from 'core/shared/domain/value-objects/uuid.vo';
 import { CategoriesController } from 'nest-modules/categories/categories.controller';
-import { CategoryOutputMapper } from 'core/category/application/common/category-output';
+import { CategoryOutputMapper } from 'core/category/application/use-cases/common/category-output';
 import { instanceToPlain } from 'class-transformer';
 
 describe('CategoriesController (e2e)', () => {

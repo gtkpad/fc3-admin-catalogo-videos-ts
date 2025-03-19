@@ -85,7 +85,6 @@ export class SearchParams<Filter = string> extends ValueObject {
   }
 
   protected set filter(value: Filter | null) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this._filter =
       value === null || value === undefined || (value as unknown) === ''
         ? null

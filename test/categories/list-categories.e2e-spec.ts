@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { instanceToPlain } from 'class-transformer';
 import { ICategoryRepository } from '../../src/core/category/domain/category.repository';
-import { CategoryOutputMapper } from 'core/category/application/common/category-output';
+import { CategoryOutputMapper } from 'core/category/application/use-cases/common/category-output';
 import { CategoriesController } from 'nest-modules/categories/categories.controller';
 import { ListCategoriesFixture } from 'nest-modules/categories/testing/category.fixture';
 import { startApp } from 'nest-modules/shared/testing/helpers';
@@ -25,7 +25,7 @@ describe('CategoriesController (e2e)', () => {
       test.each(arrange)(
         'when query params is $send_data',
         async ({ send_data, expected }) => {
-          const queryParams = new URLSearchParams(send_data).toString();
+          const queryParams = new URLSearchParams(send_data as any).toString();
           return request(nestApp.app.getHttpServer())
             .get(`/categories/?${queryParams}`)
             .expect(200)
