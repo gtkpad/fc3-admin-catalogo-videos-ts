@@ -210,7 +210,9 @@ const config: Config = {
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '.interface.ts',
+    '-interface.ts',
     'shared/testing',
+    'shared-module/testing',
     'validator-rules.ts',
     'fixture.ts',
     '.input.ts',
