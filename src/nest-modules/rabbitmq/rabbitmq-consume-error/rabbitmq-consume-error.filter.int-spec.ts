@@ -102,7 +102,7 @@ describe('RabbitmqConsumeErrorFilter Integration Tests', () => {
   });
 
   afterEach(async () => {
-    await module.close();
+    await module?.close();
   });
 
   it('should not retry if error is non-retriable', async () => {

@@ -15,6 +15,7 @@ services:
 
   db:
     image: mysql:8.0.30-debian
+    platform: linux/amd64
     environment:
       - MYSQL_DATABASE=micro_videos
       - MYSQL_ROOT_PASSWORD=root

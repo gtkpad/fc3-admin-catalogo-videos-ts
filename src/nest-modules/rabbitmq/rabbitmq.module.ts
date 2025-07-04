@@ -37,7 +37,7 @@ export class RabbitmqModule {
     return {
       module: RabbitmqModule,
       imports: [
-        RabbitMQModule.forRootAsync({
+        RabbitMQModule.forRootAsync(RabbitMQModule, {
           useFactory: (configService: ConfigService) => ({
             uri: configService.get<string>('RABBITMQ_URI') ?? '',
             registerHandlers:
