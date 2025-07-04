@@ -3,6 +3,7 @@
 ### Create Category
 POST http://localhost:3000/categories
 Content-Type: application/json
+Authorization: Bearer {{jwtToken}}
 
 {
   "name": "Electronics",
@@ -11,6 +12,47 @@ Content-Type: application/json
 
 ### List Categories
 GET http://localhost:3000/categories
+Authorization: Bearer {{jwtToken}}
+
 
 ### Get Category by ID
 GET http://localhost:3000/categories/:id
+Authorization: Bearer {{jwtToken}}
+
+
+
+###
+
+### Estou usando host.docker.internal, porque no momento o dev container com rest client está fazendo requisição de dentro do container, 
+### então por localhost:8080 não funciona, mas se estiver usando o rest client fora do container, pode usar localhost:8080
+POST http://host.docker.internal:8080/realms/codeflix/protocol/openid-connect/token
+Content-Type: application/x-www-form-urlencoded
+
+username=admin@user.com
+&password=secret
+&grant_type=password
+&client_id=codeflix-admin-frontend
+
+### configuração do openid connect server
+GET http://host.docker.internal:8080/realms/codeflix/.well-known/openid-configuration
+
+### certificados
+GET http://host.docker.internal:8080/realms/codeflix/protocol/openid-connect/certs
+
+###
+POST http://localhost:3000/auth
+Content-Type: application/json
+
+{
+    "email": "admin@user.com",
+    "password": "123456"
+}
+
+###
+
+@jwtToken = eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiYWRtaW4tY2F0YWxvZyJdfSwiaWF0IjoxNzUxNjUzNDg4LCJleHAiOjE3NTE3Mzk4ODh9.j1hAKuF-r_8TbISKkYSiEssd2L4c-mnGwgHVdJaNifB_giRVyMXUsnnrB3zP_8OdM_nHOyaHcNZMNwmDE5why6WZIziz3rkv58fht_Et8a-fIViTpyLQp35xNECop6LxkeudDeXnG5TX5NtowzbDVxgsUAsje8Mk0tDfOprs9sabsXtWWforqbDlbA8YDbrmZpos2rl5FxaAVBXTrIJzuBNKnTn6UWdlVUqjIuuailSPFD9dfRm_AJlMr_nCb0LfxaXlfBbA85as2GLnO-Wfbo5ZX1Z5Me7GjroHqqI-3Y4Q1Nw3BXZS2RV16DuLXwopDvapTDhfcxgDNEyj5vYEJQ
+
+###
+GET http://localhost:3000/auth
+Content-Type: application/json
+Authorization: Bearer {{jwtToken}}

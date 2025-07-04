@@ -22,6 +22,7 @@ import {
 } from '../testing/category.fixture';
 import { ConfigModule } from 'nest-modules/config/config.module';
 import { GetCategoryUseCase } from 'core/category/application/use-cases/get-category/get-category.use-case';
+import { AuthModule } from 'nest-modules/auth/auth.module';
 
 describe('CategoriesController Integration Tests', () => {
   let controller: CategoriesController;
@@ -29,7 +30,12 @@ describe('CategoriesController Integration Tests', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), DatabaseModule, CategoriesModule],
+      imports: [
+        ConfigModule.forRoot(),
+        DatabaseModule,
+        AuthModule,
+        CategoriesModule,
+      ],
     }).compile();
     controller = module.get<CategoriesController>(CategoriesController);
     repository = module.get<ICategoryRepository>(

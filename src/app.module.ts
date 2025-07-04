@@ -9,19 +9,21 @@ import { VideosModule } from 'nest-modules/videos/videos.module';
 import { EventModule } from 'nest-modules/event/event.module';
 import { UseCaseModule } from 'nest-modules/usecase/usecase.module';
 import { RabbitmqModule } from 'nest-modules/rabbitmq/rabbitmq.module';
+import { AuthModule } from './nest-modules/auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     DatabaseModule,
     SharedModule,
+    UseCaseModule,
+    RabbitmqModule.forRoot(),
+    AuthModule,
     EventModule,
     CategoriesModule,
     CastMembersModule,
     GenresModule,
     VideosModule,
-    UseCaseModule,
-    RabbitmqModule.forRoot(),
   ],
   controllers: [],
   providers: [],

@@ -13,6 +13,25 @@ describe('CategoriesController (e2e)', () => {
   const uuid = '9366b7dc-2d71-4799-b91c-c64adb205104';
 
   describe('/categories/:id (PATCH)', () => {
+    describe('unauthenticated', () => {
+      const app = startApp();
+
+      test('should return 401 when not authenticated', () => {
+        return request(app.app.getHttpServer())
+          .patch('/categories/88ff2587-ce5a-4769-a8c6-1d63d29c5f7a')
+          .send({})
+          .expect(401);
+      });
+
+      test('should return 403 when not authenticated as admin', () => {
+        return request(app.app.getHttpServer())
+          .patch('/categories/88ff2587-ce5a-4769-a8c6-1d63d29c5f7a')
+          .authenticate(app.app, false)
+          .send({})
+          .expect(403);
+      });
+    });
+
     describe('should a response error when id is invalid or not found', () => {
       const nestApp = startApp();
       const faker = Category.fake().aCategory();
@@ -43,6 +62,7 @@ describe('CategoriesController (e2e)', () => {
         async ({ id, send_data, expected }) => {
           return request(nestApp.app.getHttpServer())
             .patch(`/categories/${id}`)
+            .authenticate(nestApp.app, true)
             .send(send_data)
             .expect(expected.statusCode)
             .expect(expected);
@@ -60,6 +80,7 @@ describe('CategoriesController (e2e)', () => {
       test.each(arrange)('when body is $label', ({ value }) => {
         return request(app.app.getHttpServer())
           .patch(`/categories/${uuid}`)
+          .authenticate(app.app, true)
           .send(value.send_data)
           .expect(422)
           .expect(value.expected);
@@ -86,6 +107,7 @@ describe('CategoriesController (e2e)', () => {
         await categoryRepo.insert(category);
         return request(app.app.getHttpServer())
           .patch(`/categories/${category.category_id.id}`)
+          .authenticate(app.app, true)
           .send(value.send_data)
           .expect(422)
           .expect(value.expected);
@@ -110,6 +132,7 @@ describe('CategoriesController (e2e)', () => {
 
           const res = await request(appHelper.app.getHttpServer())
             .patch(`/categories/${categoryCreated.category_id.id}`)
+            .authenticate(appHelper.app, true)
             .send(send_data)
             .expect(200);
           const keyInResponse = UpdateCategoryFixture.keysInResponse;

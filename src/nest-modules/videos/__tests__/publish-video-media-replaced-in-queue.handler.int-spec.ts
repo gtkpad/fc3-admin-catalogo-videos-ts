@@ -27,6 +27,7 @@ import { Sequelize } from 'sequelize-typescript';
 import { ChannelWrapper } from 'amqp-connection-manager';
 import { ConsumeMessage } from 'amqplib';
 import { EVENTS_MESSAGE_BROKER_CONFIG } from '../../../core/shared/infra/message-broker/events-message-broker.config';
+import { AuthModule } from 'nest-modules/auth/auth.module';
 // import { AuthModule } from '../../auth/auth.module';
 
 describe('PublishVideoMediaReplacedInQueueHandler Integration Tests', () => {
@@ -41,7 +42,7 @@ describe('PublishVideoMediaReplacedInQueueHandler Integration Tests', () => {
         EventModule,
         UseCaseModule,
         RabbitmqModule.forRoot(),
-        // AuthModule,
+        AuthModule,
         VideosModule,
       ],
     })

@@ -9,6 +9,21 @@ import { CATEGORY_PROVIDERS } from 'nest-modules/categories/categories.providers
 
 describe('CategoriesController (e2e)', () => {
   describe('/categories (GET)', () => {
+    describe('unauthenticated', () => {
+      const app = startApp();
+
+      test('should return 401 when not authenticated', () => {
+        return request(app.app.getHttpServer()).get('/categories').expect(401);
+      });
+
+      test('should return 403 when not authenticated as admin', () => {
+        return request(app.app.getHttpServer())
+          .get('/categories')
+          .authenticate(app.app, false)
+          .expect(403);
+      });
+    });
+
     describe('should return categories sorted by created_at when request query is empty', () => {
       let categoryRepo: ICategoryRepository;
       const nestApp = startApp();
@@ -28,6 +43,7 @@ describe('CategoriesController (e2e)', () => {
           const queryParams = new URLSearchParams(send_data as any).toString();
           return request(nestApp.app.getHttpServer())
             .get(`/categories/?${queryParams}`)
+            .authenticate(nestApp.app, true)
             .expect(200)
             .expect({
               data: expected.entities.map((e) =>
@@ -61,6 +77,7 @@ describe('CategoriesController (e2e)', () => {
           const queryParams = new URLSearchParams(send_data as any).toString();
           return request(nestApp.app.getHttpServer())
             .get(`/categories/?${queryParams}`)
+            .authenticate(nestApp.app, true)
             .expect(200)
             .expect({
               data: expected.entities.map((e) =>

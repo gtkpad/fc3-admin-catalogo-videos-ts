@@ -1,3 +1,3 @@
-// import '../src/nest-modules/shared-module/testing/supertest-extend';
+import '../src/nest-modules/shared/testing/supertest-extend';
 
 process.env.NODE_ENV = 'e2e';

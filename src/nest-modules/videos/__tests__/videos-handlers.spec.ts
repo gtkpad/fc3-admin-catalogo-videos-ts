@@ -10,6 +10,7 @@ import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { UseCaseModule } from '../../usecase/usecase.module';
 import { DynamicModule } from '@nestjs/common';
 import { UnitOfWorkFakeInMemory } from 'core/shared/infra/repository/fake-unit-of-work-in-memory';
+import { AuthModule } from 'nest-modules/auth/auth.module';
 // import { AuthModule } from '../../auth/auth.module';
 
 class RabbitmqModuleFake {
@@ -40,7 +41,7 @@ describe('VideosModule Unit Tests', () => {
         EventModule,
         UseCaseModule,
         DatabaseModule,
-        // AuthModule,
+        AuthModule,
         RabbitmqModuleFake.forRoot(),
         VideosModule,
       ],

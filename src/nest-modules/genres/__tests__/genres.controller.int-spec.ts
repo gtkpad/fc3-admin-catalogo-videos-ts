@@ -26,6 +26,7 @@ import { UnitOfWorkSequelize } from '../../../core/shared/infra/repository/seque
 import { CATEGORY_PROVIDERS } from '../../categories/categories.providers';
 import { DatabaseModule } from '../../database/database.module';
 import { ConfigModule } from '../../config/config.module';
+import { AuthModule } from 'nest-modules/auth/auth.module';
 
 describe('GenresController Integration Tests', () => {
   let controller: GenresController;
@@ -34,7 +35,12 @@ describe('GenresController Integration Tests', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [ConfigModule.forRoot(), DatabaseModule, GenresModule],
+      imports: [
+        ConfigModule.forRoot(),
+        DatabaseModule,
+        AuthModule,
+        GenresModule,
+      ],
     })
       .overrideProvider('UnitOfWork')
       .useFactory({

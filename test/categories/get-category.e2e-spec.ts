@@ -11,6 +11,25 @@ import { CATEGORY_PROVIDERS } from 'nest-modules/categories/categories.providers
 describe('CategoriesController (e2e)', () => {
   const nestApp = startApp();
   describe('/categories/:id (GET)', () => {
+    describe('unauthenticated', () => {
+      const app = startApp();
+
+      test('should return 401 when not authenticated', () => {
+        return request(app.app.getHttpServer())
+          .get('/categories/88ff2587-ce5a-4769-a8c6-1d63d29c5f7a')
+          .send({})
+          .expect(401);
+      });
+
+      test('should return 403 when not authenticated as admin', () => {
+        return request(app.app.getHttpServer())
+          .get('/categories/88ff2587-ce5a-4769-a8c6-1d63d29c5f7a')
+          .authenticate(app.app, false)
+          .send({})
+          .expect(403);
+      });
+    });
+
     describe('should a response error when id is invalid or not found', () => {
       const arrange = [
         {
@@ -35,6 +54,7 @@ describe('CategoriesController (e2e)', () => {
       test.each(arrange)('when id is $id', async ({ id, expected }) => {
         return request(nestApp.app.getHttpServer())
           .get(`/categories/${id}`)
+          .authenticate(nestApp.app, true)
           .expect(expected.statusCode)
           .expect(expected);
       });
@@ -49,6 +69,7 @@ describe('CategoriesController (e2e)', () => {
 
       const res = await request(nestApp.app.getHttpServer())
         .get(`/categories/${category.category_id.id}`)
+        .authenticate(nestApp.app, true)
         .expect(200);
       const keyInResponse = GetCategoryFixture.keysInResponse;
       expect(Object.keys(res.body)).toStrictEqual(['data']);
