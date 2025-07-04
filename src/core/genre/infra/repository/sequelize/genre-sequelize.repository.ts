@@ -12,7 +12,7 @@ import { GenreModel } from './genre-model';
 import { GenreModelMapper } from './genre-model-mapper';
 import { InvalidArgumentError } from '../../../../shared/domain/errors/invalid-argument.error';
 import { NotFoundError } from '../../../../shared/domain/errors/not-found.error';
-import { UnitOfWorkSequelize } from 'core/shared/infra/sequelize/unit-of-work-sequelize';
+import { UnitOfWorkSequelize } from 'core/shared/infra/repository/sequelize/unit-of-work-sequelize';
 
 export class GenreSequelizeRepository implements IGenreRepository {
   sortableFields: string[] = ['name', 'created_at'];

@@ -1,6 +1,6 @@
 import { CategorySequelizeRepository } from 'core/category/infra/repository/sequelize/category-sequelize.repository';
 import { CategoryModel } from 'core/category/infra/repository/sequelize/category.model';
-import { UnitOfWorkSequelize } from 'core/shared/infra/sequelize/unit-of-work-sequelize';
+import { UnitOfWorkSequelize } from 'core/shared/infra/repository/sequelize/unit-of-work-sequelize';
 import { Category } from '../../../../../category/domain/category.aggregate';
 import { NotFoundError } from '../../../../../shared/domain/errors/not-found.error';
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers';

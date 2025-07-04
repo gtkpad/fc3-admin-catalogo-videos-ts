@@ -8,6 +8,7 @@ import { ICategoryRepository } from '../../core/category/domain/category.reposit
 import { CategoryInMemoryRepository } from '../../core/category/infra/repository/in-memory/category-in-memory.repository';
 import { CategorySequelizeRepository } from '../../core/category/infra/repository/sequelize/category-sequelize.repository';
 import { CategoryModel } from '../../core/category/infra/repository/sequelize/category.model';
+import { CategoriesIdExistsInDatabaseValidator } from '../../core/category/application/validations/categories-ids-exists-in-database.validator';
 
 export const REPOSITORIES = {
   CATEGORY_REPOSITORY: {
@@ -65,18 +66,18 @@ export const USE_CASES = {
   },
 };
 
-// export const VALIDATIONS = {
-//   CATEGORIES_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
-//     provide: CategoriesIdExistsInDatabaseValidator,
-//     useFactory: (categoryRepo: ICategoryRepository) => {
-//       return new CategoriesIdExistsInDatabaseValidator(categoryRepo);
-//     },
-//     inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
-//   },
-// };
+export const VALIDATIONS = {
+  CATEGORIES_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
+    provide: CategoriesIdExistsInDatabaseValidator,
+    useFactory: (categoryRepo: ICategoryRepository) => {
+      return new CategoriesIdExistsInDatabaseValidator(categoryRepo);
+    },
+    inject: [REPOSITORIES.CATEGORY_REPOSITORY.provide],
+  },
+};
 
 export const CATEGORY_PROVIDERS = {
   REPOSITORIES,
   USE_CASES,
-  // VALIDATIONS,
+  VALIDATIONS,
 };

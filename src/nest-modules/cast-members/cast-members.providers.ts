@@ -6,11 +6,12 @@ import { GetCastMemberUseCase } from '../../core/cast-member/application/use-cas
 import { DeleteCastMemberUseCase } from '../../core/cast-member/application/use-cases/delete-cast-member/delete-cast-member.use-case';
 
 import { ICastMemberRepository } from '../../core/cast-member/domain/cast-member.repository';
-import { CastMemberInMemoryRepository } from 'core/cast-member/infra/repository/in-memory/cast-member-in-memory.repository';
+import { CastMemberInMemoryRepository } from '../../core/cast-member/infra/repository/in-memory/cast-member-in-memory.repository';
 import {
   CastMemberSequelizeRepository,
   CastMemberModel,
-} from 'core/cast-member/infra/repository/sequelize/cast-member-sequelize';
+} from '../../core/cast-member/infra/repository/sequelize/cast-member-sequelize';
+import { CastMembersIdExistsInDatabaseValidator } from '../../core/cast-member/application/validations/cast-members-ids-exists-in-database.validator';
 
 export const REPOSITORIES = {
   CAST_MEMBER_REPOSITORY: {
@@ -68,18 +69,18 @@ export const USE_CASES = {
   },
 };
 
-// export const VALIDATIONS = {
-//   CAST_MEMBERS_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
-//     provide: CastMembersIdExistsInDatabaseValidator,
-//     useFactory: (castMemberRepo: ICastMemberRepository) => {
-//       return new CastMembersIdExistsInDatabaseValidator(castMemberRepo);
-//     },
-//     inject: [REPOSITORIES.CAST_MEMBER_REPOSITORY.provide],
-//   },
-// };
+export const VALIDATIONS = {
+  CAST_MEMBERS_IDS_EXISTS_IN_DATABASE_VALIDATOR: {
+    provide: CastMembersIdExistsInDatabaseValidator,
+    useFactory: (castMemberRepo: ICastMemberRepository) => {
+      return new CastMembersIdExistsInDatabaseValidator(castMemberRepo);
+    },
+    inject: [REPOSITORIES.CAST_MEMBER_REPOSITORY.provide],
+  },
+};
 
 export const CAST_MEMBERS_PROVIDERS = {
   REPOSITORIES,
   USE_CASES,
-  // VALIDATIONS,
+  VALIDATIONS,
 };

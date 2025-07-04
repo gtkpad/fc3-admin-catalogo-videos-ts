@@ -6,6 +6,26 @@ import {
 import * as Joi from 'joi';
 import { join } from 'node:path';
 
+//@ts-expect-error - the type is correct
+const joiJson = Joi.extend((joi) => {
+  return {
+    type: 'object',
+    base: joi.object(),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    coerce(value, _schema) {
+      if (value[0] !== '{' && !/^\s*\{/.test(value)) {
+        return;
+      }
+
+      try {
+        return { value: JSON.parse(value) };
+      } catch (err) {
+        console.error(err);
+      }
+    },
+  };
+});
+
 type DB_SCHEMA_TYPE = {
   DB_VENDOR: 'mysql' | 'sqlite';
   DB_HOST: string;
@@ -40,6 +60,28 @@ export const CONFIG_DB_SCHEMA: Joi.StrictSchemaMap<DB_SCHEMA_TYPE> = {
   DB_AUTO_LOAD_MODELS: Joi.boolean().required(),
 };
 
+type CONFIG_GOOGLE_SCHEMA_TYPE = {
+  GOOGLE_CLOUD_CREDENTIALS: object;
+  GOOGLE_CLOUD_STORAGE_BUCKET_NAME: string;
+};
+
+export const CONFIG_GOOGLE_SCHEMA: Joi.StrictSchemaMap<CONFIG_GOOGLE_SCHEMA_TYPE> =
+  {
+    GOOGLE_CLOUD_CREDENTIALS: joiJson.object().required(),
+    GOOGLE_CLOUD_STORAGE_BUCKET_NAME: Joi.string().required(),
+  };
+
+type CONFIG_RABBITMQ_SCHEMA_TYPE = {
+  RABBITMQ_URI: string;
+  RABBITMQ_REGISTER_HANDLERS: boolean;
+};
+
+export const CONFIG_RABBITMQ_SCHEMA: Joi.StrictSchemaMap<CONFIG_RABBITMQ_SCHEMA_TYPE> =
+  {
+    RABBITMQ_URI: Joi.string().required(),
+    RABBITMQ_REGISTER_HANDLERS: Joi.boolean().required(),
+  };
+
 @Module({})
 export class ConfigModule extends NestConfigModule {
   static forRoot(options: ConfigModuleOptions = {}) {
@@ -54,6 +96,8 @@ export class ConfigModule extends NestConfigModule {
       ],
       validationSchema: Joi.object({
         ...CONFIG_DB_SCHEMA,
+        ...CONFIG_GOOGLE_SCHEMA,
+        ...CONFIG_RABBITMQ_SCHEMA,
       }),
       ...otherOptions,
     });

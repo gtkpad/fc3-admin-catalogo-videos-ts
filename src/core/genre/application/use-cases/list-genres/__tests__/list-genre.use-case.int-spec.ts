@@ -5,7 +5,7 @@ import {
   GenreCategoryModel,
 } from 'core/genre/infra/repository/sequelize/genre-model';
 import { GenreSequelizeRepository } from 'core/genre/infra/repository/sequelize/genre-sequelize.repository';
-import { UnitOfWorkSequelize } from 'core/shared/infra/sequelize/unit-of-work-sequelize';
+import { UnitOfWorkSequelize } from 'core/shared/infra/repository/sequelize/unit-of-work-sequelize';
 import { Category } from '../../../../../category/domain/category.aggregate';
 import { setupSequelize } from '../../../../../shared/infra/testing/helpers';
 import { Genre } from '../../../../domain/genre.aggregate';
